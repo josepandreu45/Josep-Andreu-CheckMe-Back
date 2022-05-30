@@ -1,6 +1,6 @@
-const encryptPassword = require("../../utils/encryptPassword");
+const encryptPassword = require("../../../utils/encryptPassword");
 
-const User = require("../../database/models/User");
+const User = require("../../../database/models/User");
 
 const registerUser = async (req, res, next) => {
   const { username, password } = req.body;
@@ -18,12 +18,12 @@ const registerUser = async (req, res, next) => {
       username,
       password: encryptedPassword,
     });
-    res
-      .status(201)
-      .json({ user: { username: newUser.username, id: newUser.id } });
-  } catch (error) {
+    res.status(201).json({ user: { newUser } });
+  } catch {
+    const error = new Error();
     error.statusCode = 400;
     error.customMessage = "wrong user data";
+    next(error);
   }
 };
 
