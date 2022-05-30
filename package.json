@@ -28,8 +28,7 @@
       "!src/index.js",
       "!src/server/initializeServer.js",
       "!src/server/index.js",
-      "!src/database/index.js",
-      "!.eslintrc.js"
+      "!src/database/index.js"
     ]
   },
   "dependencies": {
