@@ -25,10 +25,11 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/**/*.test.js",
       "!src/index.js",
-      "!src/reportWebVitals.js",
-      "!src/setupTests.js"
+      "!src/server/initializeServer.js",
+      "!src/server/index.js",
+      "!src/database/index.js",
+      "!.eslintrc.js"
     ]
   }
 }
