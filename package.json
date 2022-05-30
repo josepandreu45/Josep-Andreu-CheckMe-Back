@@ -31,5 +31,12 @@
       "!src/database/index.js",
       "!.eslintrc.js"
     ]
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0"
   }
 }
