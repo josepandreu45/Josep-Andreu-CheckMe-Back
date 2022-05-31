@@ -33,7 +33,9 @@ describe("Given the registerUser function", () => {
       await registerUser(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedResult);
-      expect(res.json).toHaveBeenCalledWith({ user: { newUser } });
+      expect(res.json).toHaveBeenCalledWith({
+        user: { name: newUser.name, username: newUser.username },
+      });
     });
   });
   describe("when its called with a username that exists", () => {
