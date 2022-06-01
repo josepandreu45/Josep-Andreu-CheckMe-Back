@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const app = require("../../index");
 const connectDB = require("../../../database/index");
 const User = require("../../../database/models/User");
-const { mockUser, mockUsers } = require("../../../mocks/userMocks");
+const { mockUsers } = require("../../../mocks/userMocks");
 
 let mongoServer;
 
