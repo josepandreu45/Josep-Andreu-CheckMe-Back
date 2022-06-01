@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const { mockUser } = require("../../../mocks/userMocks");
-const { registerUser } = require("./usersControllers");
+const { registerUser, loginUser } = require("./usersControllers");
 const User = require("../../../database/models/User");
 
 describe("Given the registerUser function", () => {
@@ -85,6 +85,96 @@ describe("Given the registerUser function", () => {
       await registerUser(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+const expectedToken = "userToken";
+
+jest.mock("jsonwebtoken", () => ({
+  sign: () => expectedToken,
+}));
+
+describe("Given the loginUser function", () => {
+  describe("When its called with an username and password corrects", () => {
+    test("Then it should call the response method status with 200", async () => {
+      jest.spyOn(bcrypt, "compare").mockResolvedValue(true);
+      User.findOne = jest.fn().mockResolvedValue(mockUser);
+
+      const req = {
+        body: {
+          id: "1",
+          name: "mariajo",
+          username: "maria jose",
+          password: "123456",
+        },
+      };
+
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const next = jest.fn();
+      const expectedResultvalue = 200;
+
+      await loginUser(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedResultvalue);
+      expect(res.json).toHaveBeenCalledWith({ token: expectedToken });
+    });
+  });
+
+  describe("when its invked with an incorrect username", () => {
+    test("then it should call next", async () => {
+      User.findOne = jest.fn().mockResolvedValue(!mockUser);
+
+      const req = {
+        body: {
+          id: "1",
+          name: "mariajo",
+          username: "maria josee",
+          password: "123456",
+        },
+      };
+
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const next = jest.fn();
+
+      await loginUser(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+
+  describe("when its invked with an incorrect password", () => {
+    test("then it should call next", async () => {
+      jest.spyOn(bcrypt, "compare").mockResolvedValue(false);
+      User.findOne = jest.fn().mockResolvedValue(mockUser);
+
+      const req = {
+        body: {
+          id: "1",
+          name: "mariajo",
+          username: "maria jose",
+          password: "1111",
+        },
+      };
+
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const next = jest.fn();
+
+      await loginUser(req, res, next);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
