@@ -1,0 +1,77 @@
+{
+  "info": {
+    "_postman_id": "5c0b61a4-957e-4b0c-b4e6-ae605f7f07ac",
+    "name": "CheckMe-Josep-Andreu",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20626883"
+  },
+  "item": [
+    {
+      "name": "register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"username\": \"jaimito\",\r\n\"name\":\"jaimito\",\r\n\"password\":\"jaimito\"\r\n\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{origin}}users/register",
+          "host": ["{{origin}}users"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"username\": \"jaimito\",\r\n\"password\":\"jaimito\"\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{origin}}users/login",
+          "host": ["{{origin}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "origin",
+      "value": "https://josep-andreu-back-final-project-202204.onrender.com/",
+      "type": "string"
+    }
+  ]
+}
