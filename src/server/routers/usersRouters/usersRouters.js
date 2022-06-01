@@ -2,6 +2,7 @@ const express = require("express");
 const { validate } = require("express-validation");
 const {
   credentialsRegisterSchema,
+  credentialsLoginSchema,
 } = require("../../../schemas/userCredentialsSchema");
 const {
   registerUser,
@@ -11,6 +12,6 @@ const {
 const router = express.Router();
 
 router.post("/register", validate(credentialsRegisterSchema), registerUser);
-router.post("/login", loginUser);
+router.post("/login", validate(credentialsLoginSchema), loginUser);
 
 module.exports = router;
