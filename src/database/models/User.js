@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, SchemaTypes } = require("mongoose");
 
 const UserSchema = new Schema({
   name: {
@@ -15,6 +15,10 @@ const UserSchema = new Schema({
   password: {
     type: String,
     require: true,
+  },
+  checks: {
+    type: [{ type: SchemaTypes.ObjectId, ref: "Check" }],
+    default: [],
   },
 });
 
