@@ -1,6 +1,6 @@
 const Check = require("../../../database/models/Check");
 const listOfCheksMock = require("../../../mocks/checksMocks");
-const { getChecks } = require("./checksController");
+const { getChecks, deleteCheck } = require("./checksController");
 
 describe("Given a getChecks controller", () => {
   describe("When it's invoqued with a response", () => {
@@ -29,6 +29,41 @@ describe("Given a getChecks controller", () => {
       await getChecks(null, null, next);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a deleteCheck controller", () => {
+  describe("When it's invoqued with a response and a request with an id to delete", () => {
+    test("Then it should call the response's status method with 200 and the json method with a 'Check deleted' message", async () => {
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      const req = { params: { idCheck: 40 } };
+
+      Check.findByIdAndDelete = jest.fn().mockResolvedValue();
+
+      await deleteCheck(req, res, null);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ msg: "Check deleted" });
+    });
+  });
+
+  describe("When it's invoqued with a response and a request with a invalid id to delete", () => {
+    test("Then it should call the response's status method with 404 and the json method with a 'No check qith that id found' message", async () => {
+      const next = jest.fn();
+      const req = { params: { idNote: 55 } };
+      const expectedError = {
+        message: "No check with that id found",
+        code: 404,
+      };
+
+      Check.findByIdAndDelete = jest.fn().mockRejectedValue({});
+      await deleteCheck(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });
