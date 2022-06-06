@@ -12,4 +12,19 @@ const getChecks = async (req, res, next) => {
   }
 };
 
-module.exports = { getChecks };
+const deleteCheck = async (req, res, next) => {
+  const { idCheck } = req.params;
+
+  try {
+    await Check.findByIdAndDelete(idCheck);
+
+    res.status(200).json({ msg: "Check deleted" });
+  } catch (error) {
+    error.message = "No check with that id found";
+    error.code = 404;
+
+    next(error);
+  }
+};
+
+module.exports = { getChecks, deleteCheck };
