@@ -53,3 +53,20 @@ describe("Given a GET '/checks' endpoint", () => {
     });
   });
 });
+
+describe("Given a deleteCheck '/checks/:id' endpoint", () => {
+  describe("When in recieves a request with an Id and the resource it's found on the server", () => {
+    test("Then it should respond with status 200 and a json with a msg 'Check deleted'", async () => {
+      verify.mockImplementation(() => "mockVerifyValue");
+      const expectedJson = { msg: "Check deleted" };
+
+      Check.findByIdAndDelete = jest.fn().mockResolvedValueOnce({});
+      const { body } = await request(app)
+        .delete("/checks/2")
+        .set({ authorization: "Bearer mocktoken" })
+        .expect(200);
+
+      expect(body).toEqual(expectedJson);
+    });
+  });
+});

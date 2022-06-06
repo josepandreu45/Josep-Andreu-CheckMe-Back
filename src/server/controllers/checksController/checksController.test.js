@@ -20,9 +20,9 @@ describe("Given a getChecks controller", () => {
   });
 
   describe("When it's invoqued with next function and the find method fails", () => {
-    test("Then it should call next with an 404 error and the message: 'notes not found'", async () => {
+    test("Then it should call next with an 404 error and the message: 'Checks not found'", async () => {
       const next = jest.fn();
-      const error = { code: 404, customMessage: "notes not found" };
+      const error = { code: 404, customMessage: "Checks not found" };
 
       Check.find = jest.fn().mockRejectedValue({});
 
@@ -52,11 +52,11 @@ describe("Given a deleteCheck controller", () => {
   });
 
   describe("When it's invoqued with a response and a request with a invalid id to delete", () => {
-    test("Then it should call the response's status method with 404 and the json method with a 'No check qith that id found' message", async () => {
+    test("Then it should call the response's status method with 404 and the json method with a 'No check with that id found' message", async () => {
       const next = jest.fn();
-      const req = { params: { idNote: 55 } };
+      const req = { params: { idCheck: 55 } };
       const expectedError = {
-        message: "No check with that id found",
+        customMessage: "No check with that id found",
         code: 404,
       };
 

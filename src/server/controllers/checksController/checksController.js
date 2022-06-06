@@ -6,7 +6,7 @@ const getChecks = async (req, res, next) => {
     res.status(200).json({ checks });
   } catch (error) {
     error.code = 404;
-    error.customMessage = "notes not found";
+    error.customMessage = "Checks not found";
 
     next(error);
   }
@@ -20,7 +20,7 @@ const deleteCheck = async (req, res, next) => {
 
     res.status(200).json({ msg: "Check deleted" });
   } catch (error) {
-    error.message = "No check with that id found";
+    error.customMessage = "No check with that id found";
     error.code = 404;
 
     next(error);
