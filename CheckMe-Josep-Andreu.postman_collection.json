@@ -49,6 +49,51 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "get checks",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjOTcwODJhODNiNWEzM2ZiMjE2OCIsInVzZXJuYW1lIjoiam9zZXAiLCJpYXQiOjE2NTQ0Mzk4OTB9.oNt_HTdXv3oPoJwIK_Uq1lqb_FYb6On5RiLqPhakdQo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{origin}}checks",
+          "host": ["{{origin}}checks"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete check",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjOTcwODJhODNiNWEzM2ZiMjE2OCIsInVzZXJuYW1lIjoiam9zZXAiLCJpYXQiOjE2NTQ0Mzk4OTB9.oNt_HTdXv3oPoJwIK_Uq1lqb_FYb6On5RiLqPhakdQo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{origin}}checks/629e2ee87b3c5e2be813738c",
+          "host": ["{{origin}}checks"],
+          "path": ["629e2ee87b3c5e2be813738c"]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
