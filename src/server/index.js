@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const helmet = require("helmet");
 const { error404, generalError } = require("./middlewares/errors/errors");
 const usersRouters = require("./routers/usersRouters/usersRouters");
 const auth = require("./middlewares/auth/auth");
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static("uploads"));
 app.use(express.json());
+app.use(helmet());
 
 app.use("/users", usersRouters);
 app.use("/checks", auth, checksRouters);
