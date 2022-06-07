@@ -1,77 +1,140 @@
 {
-  "info": {
-    "_postman_id": "5c0b61a4-957e-4b0c-b4e6-ae605f7f07ac",
-    "name": "CheckMe-Josep-Andreu",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "20626883"
-  },
-  "item": [
-    {
-      "name": "register",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n\"username\": \"jaimito\",\r\n\"name\":\"jaimito\",\r\n\"password\":\"jaimito\"\r\n\r\n\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{origin}}users/register",
-          "host": ["{{origin}}users"],
-          "path": ["register"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "login",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n\"username\": \"jaimito\",\r\n\"password\":\"jaimito\"\r\n\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{origin}}users/login",
-          "host": ["{{origin}}users"],
-          "path": ["login"]
-        }
-      },
-      "response": []
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "origin",
-      "value": "https://josep-andreu-back-final-project-202204.onrender.com/",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "5c0b61a4-957e-4b0c-b4e6-ae605f7f07ac",
+		"name": "CheckMe-Josep-Andreu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20626883"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"jaimito\",\r\n\"name\":\"jaimito\",\r\n\"password\":\"jaimito\"\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{origin}}users/register",
+					"host": [
+						"{{origin}}users"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"jaimito\",\r\n\"password\":\"jaimito\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{origin}}users/login",
+					"host": [
+						"{{origin}}users"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get checks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjOTcwODJhODNiNWEzM2ZiMjE2OCIsInVzZXJuYW1lIjoiam9zZXAiLCJpYXQiOjE2NTQ0Mzk4OTB9.oNt_HTdXv3oPoJwIK_Uq1lqb_FYb6On5RiLqPhakdQo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{origin}}checks",
+					"host": [
+						"{{origin}}checks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjOTcwODJhODNiNWEzM2ZiMjE2OCIsInVzZXJuYW1lIjoiam9zZXAiLCJpYXQiOjE2NTQ0Mzk4OTB9.oNt_HTdXv3oPoJwIK_Uq1lqb_FYb6On5RiLqPhakdQo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{origin}}checks/629e2ee87b3c5e2be813738c",
+					"host": [
+						"{{origin}}checks"
+					],
+					"path": [
+						"629e2ee87b3c5e2be813738c"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "origin",
+			"value": "https://josep-andreu-back-final-project-202204.onrender.com/",
+			"type": "string"
+		}
+	]
 }
