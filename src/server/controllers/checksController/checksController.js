@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 const Check = require("../../../database/models/Check");
 
 const getChecks = async (req, res, next) => {
@@ -27,4 +29,37 @@ const deleteCheck = async (req, res, next) => {
   }
 };
 
-module.exports = { getChecks, deleteCheck };
+const createCheck = async (req, res, next) => {
+  const { title, times, description } = req.body;
+  const { file } = req;
+
+  const newImage = `${Date.now()}${file.originalname}`;
+
+  try {
+    fs.rename(
+      path.join("uploads", "images", file.filename),
+      path.join("uploads", "images", newImage),
+      async (error) => {
+        if (error) {
+          next(error);
+        }
+      }
+    );
+
+    const newCheck = await Check.create({
+      title,
+      times,
+      description,
+      image: file ? path.join("uploads", "images") : "",
+    });
+
+    res.status(201).json({ newCheck });
+  } catch (error) {
+    error.customMessage = "Error creating check";
+    error.code = 400;
+
+    next(error);
+  }
+};
+
+module.exports = { getChecks, deleteCheck, createCheck };

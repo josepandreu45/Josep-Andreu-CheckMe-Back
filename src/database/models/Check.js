@@ -13,12 +13,11 @@ const CheckSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-
-  checked: {
-    type: Boolean,
-  },
-
   image: {
+    type: String,
+    default: "",
+  },
+  description: {
     type: String,
     default: "",
   },
