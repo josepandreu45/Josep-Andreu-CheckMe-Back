@@ -12,7 +12,6 @@ const router = express.Router();
 const upload = multer({
   dest: path.join("uploads", "images"),
 });
-
 router.get("/", getChecks);
 router.delete("/:idCheck", deleteCheck);
 router.post("/", upload.single("image"), createCheck);
