@@ -9,11 +9,13 @@ const checksRouters = require("./routers/checksRouters/checksRouters");
 
 const app = express();
 
+app.disable("x-powered-by");
 app.use(cors());
 app.use(morgan("dev"));
-app.use(express.static("uploads"));
 app.use(express.json());
 app.use(helmet());
+
+app.use(express.static("uploads"));
 
 app.use("/users", usersRouters);
 app.use("/checks", auth, checksRouters);
