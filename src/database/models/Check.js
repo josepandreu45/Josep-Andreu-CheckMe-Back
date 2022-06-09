@@ -25,6 +25,10 @@ const CheckSchema = new Schema({
     type: String,
     default: "",
   },
+  owner: {
+    type: Schema.Types.String,
+    ref: "User",
+  },
 });
 
 const Check = model("Check", CheckSchema, "checks");

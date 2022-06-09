@@ -1,8 +1,11 @@
 const Check = require("../../../database/models/Check");
+const User = require("../../../database/models/User");
 
 const getChecks = async (req, res, next) => {
+  const { userId } = req;
   try {
-    const checks = await Check.find();
+    const { username } = await User.findOne({ _id: userId });
+    const checks = await Check.find({ owner: username });
     res.status(200).json({ checks });
   } catch (error) {
     error.code = 404;
@@ -28,7 +31,7 @@ const deleteCheck = async (req, res, next) => {
 };
 
 const createCheck = async (req, res, next) => {
-  const { title, times, description } = req.body;
+  const { title, times, description, owner } = req.body;
   const { img, imgBackup } = req;
 
   try {
@@ -38,6 +41,7 @@ const createCheck = async (req, res, next) => {
       description,
       image: img,
       imageBackup: imgBackup,
+      owner,
     });
 
     res.status(201).json({ newCheck });
@@ -48,23 +52,5 @@ const createCheck = async (req, res, next) => {
     next(error);
   }
 };
-
-/* const getChecks = async (req, res, next) => {
-  const { checks } = req.params;
-
-  try {
-    const userChecks = await User.find({ owner: id  }).populate(
-      "checks",
-      null,
-      Check
-    );
-    res.status(200).json({ userChecks });
-  } catch (error) {
-    error.code = 404;
-    error.customMessage = "Checks not found";
-
-    next(error);
-  }
-}; */
 
 module.exports = { getChecks, deleteCheck, createCheck };
