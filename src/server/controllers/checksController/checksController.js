@@ -1,5 +1,3 @@
-const path = require("path");
-const fs = require("fs");
 const Check = require("../../../database/models/Check");
 
 const getChecks = async (req, res, next) => {
@@ -31,26 +29,15 @@ const deleteCheck = async (req, res, next) => {
 
 const createCheck = async (req, res, next) => {
   const { title, times, description } = req.body;
-  const { file } = req;
-
-  const newImage = `${Date.now()}${file.originalname}`;
+  const { img, imgBackup } = req;
 
   try {
-    fs.rename(
-      path.join("uploads", "images", file.filename),
-      path.join("uploads", "images", newImage),
-      async (error) => {
-        if (error) {
-          next(error);
-        }
-      }
-    );
-
     const newCheck = await Check.create({
       title,
       times,
       description,
-      image: file ? path.join("uploads", "images") : "",
+      image: img,
+      imageBackup: imgBackup,
     });
 
     res.status(201).json({ newCheck });
@@ -61,5 +48,23 @@ const createCheck = async (req, res, next) => {
     next(error);
   }
 };
+
+/* const getChecks = async (req, res, next) => {
+  const { checks } = req.params;
+
+  try {
+    const userChecks = await User.find({ owner: id  }).populate(
+      "checks",
+      null,
+      Check
+    );
+    res.status(200).json({ userChecks });
+  } catch (error) {
+    error.code = 404;
+    error.customMessage = "Checks not found";
+
+    next(error);
+  }
+}; */
 
 module.exports = { getChecks, deleteCheck, createCheck };

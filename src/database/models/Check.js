@@ -17,6 +17,10 @@ const CheckSchema = new Schema({
     type: String,
     default: "",
   },
+  imageBackup: {
+    type: String,
+    default: "",
+  },
   description: {
     type: String,
     default: "",
