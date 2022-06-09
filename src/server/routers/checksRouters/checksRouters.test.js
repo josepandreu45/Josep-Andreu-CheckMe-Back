@@ -5,9 +5,10 @@ const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../../index");
 const connectDatabase = require("../../../database");
-
+const mockUser = require("../../../mocks/userMocks");
 const Check = require("../../../database/models/Check");
 const listOfCheksMock = require("../../../mocks/checksMocks");
+const User = require("../../../database/models/User");
 
 let mongoServer;
 
@@ -41,7 +42,9 @@ describe("Given a GET '/checks' endpoint", () => {
       verify.mockImplementation(() => "mockVerifyValue");
       const expectedLength = 2;
 
+      User.findOne = jest.fn().mockReturnValue(mockUser);
       Check.find = jest.fn().mockResolvedValueOnce(listOfCheksMock);
+
       const {
         body: { checks },
       } = await request(app)
