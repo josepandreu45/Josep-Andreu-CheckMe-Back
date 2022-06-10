@@ -53,4 +53,10 @@ const createCheck = async (req, res, next) => {
   }
 };
 
-module.exports = { getChecks, deleteCheck, createCheck };
+const getOneCheck = async (req, res) => {
+  const { idCheck } = req.params;
+  const check = await Check.findById(idCheck);
+  res.status(200).json({ check });
+};
+
+module.exports = { getChecks, deleteCheck, createCheck, getOneCheck };
