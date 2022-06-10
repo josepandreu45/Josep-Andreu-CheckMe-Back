@@ -5,6 +5,7 @@ const {
   getChecks,
   deleteCheck,
   createCheck,
+  getOneCheck,
 } = require("../../controllers/checksController/checksController");
 const firebaseUploads = require("../../middlewares/firebase/firebase");
 
@@ -19,5 +20,6 @@ const upload = multer({
 router.get("/", getChecks);
 router.delete("/:idCheck", deleteCheck);
 router.post("/", upload.single("image"), firebaseUploads, createCheck);
+router.get("/:idCheck", getOneCheck);
 
 module.exports = router;
