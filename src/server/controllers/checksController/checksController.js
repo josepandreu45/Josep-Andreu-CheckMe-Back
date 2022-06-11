@@ -59,4 +59,35 @@ const getOneCheck = async (req, res) => {
   res.status(200).json(check);
 };
 
-module.exports = { getChecks, deleteCheck, createCheck, getOneCheck };
+const editCheck = async (req, res) => {
+  const { idCheck } = req.params;
+  const { title, times, description } = req.body;
+  const { img, imgBackup } = req;
+
+  try {
+    const checkToEdit = await Check.findById(idCheck);
+    const checkEdited = {
+      title,
+      times,
+      description,
+      image: img,
+      imageBackup: imgBackup,
+      owner: checkToEdit.owner,
+    };
+    const newCheck = await Check.findByIdAndUpdate(idCheck, checkEdited, {
+      new: true,
+    });
+    res.status(200).json(newCheck);
+  } catch (error) {
+    error.customMessage = "Check not found";
+    error.code = 400;
+  }
+};
+
+module.exports = {
+  getChecks,
+  deleteCheck,
+  createCheck,
+  getOneCheck,
+  editCheck,
+};

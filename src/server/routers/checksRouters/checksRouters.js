@@ -6,6 +6,7 @@ const {
   deleteCheck,
   createCheck,
   getOneCheck,
+  editCheck,
 } = require("../../controllers/checksController/checksController");
 const firebaseUploads = require("../../middlewares/firebase/firebase");
 
@@ -21,5 +22,6 @@ router.get("/", getChecks);
 router.delete("/:idCheck", deleteCheck);
 router.post("/", upload.single("image"), firebaseUploads, createCheck);
 router.get("/:idCheck", getOneCheck);
+router.put("/:idCheck", editCheck);
 
 module.exports = router;
