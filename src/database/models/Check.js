@@ -10,8 +10,8 @@ const CheckSchema = new Schema({
     default: 1,
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: new Date().toISOString().split("T")[0],
   },
   image: {
     type: String,
