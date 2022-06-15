@@ -2,7 +2,12 @@ const Check = require("../../../database/models/Check");
 const User = require("../../../database/models/User");
 const listOfCheksMock = require("../../../mocks/checksMocks");
 const { mockUser } = require("../../../mocks/userMocks");
-const { getChecks, deleteCheck } = require("./checksController");
+const {
+  getChecks,
+  deleteCheck,
+  createCheck,
+  getOneCheck,
+} = require("./checksController");
 
 describe("Given a getChecks controller", () => {
   describe("When it's invoqued with a response", () => {
@@ -71,6 +76,93 @@ describe("Given a deleteCheck controller", () => {
       await deleteCheck(req, null, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a createNote controller", () => {
+  const title = "title";
+  const times = 1;
+  const description = "description";
+  const username = "josep";
+  const image = "";
+  const imageBackup = "";
+  const date = "";
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  const req = {
+    checkId: "1",
+    body: {
+      title,
+      times,
+      description,
+      image,
+      imageBackup,
+      owner: username,
+      date,
+    },
+  };
+  describe("When it's invoqued with a user Id, a title, content and category", () => {
+    test("Then it should call the response's status method with 201 and the new object created", async () => {
+      const expectedObjectCreated = {
+        title,
+        times,
+        description,
+        owner: username,
+        image,
+        imageBackup,
+        date,
+      };
+
+      User.findOne = jest.fn().mockResolvedValue({ username, newCheck: {} });
+      Check.create = jest.fn().mockResolvedValue(expectedObjectCreated);
+      User.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+
+      await createCheck(req, res, null);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+    });
+  });
+
+  describe("When it's invoqued with a user Id, a title, content, a category, a next function and the create method fails", () => {
+    test("Then it should call the response's status method with 409 and a error message", async () => {
+      const next = jest.fn();
+      const error = {
+        customMessage: "Error creating check",
+        code: 400,
+      };
+
+      User.findById = jest.fn().mockResolvedValue({ username });
+      Check.create = jest.fn().mockRejectedValue({});
+
+      await createCheck(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a getNote controller", () => {
+  const req = {
+    params: { idCheck: "1" },
+  };
+  describe("When it's invoqued with a response and a id of a check to find", () => {
+    test("Then it should call the response's status method with 200 and the json method with a check", async () => {
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      Check.findById = jest.fn().mockResolvedValue(listOfCheksMock[0]);
+
+      await getOneCheck(req, res, null);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(listOfCheksMock[0]);
     });
   });
 });
